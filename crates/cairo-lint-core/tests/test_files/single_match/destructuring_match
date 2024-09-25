@@ -54,6 +54,16 @@ warning: Plugin diagnostic: you seem to be trying to use `match` for destructuri
 7 | |     };
   | |_____-
   |
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+ --> lib.cairo:4:5
+  |
+4 |       match variable {
+  |  _____-
+5 | |         Option::Some(a) => println!("{a}"),
+6 | |         Option::None => (),
+7 | |     };
+  | |_____-
+  |
 
 //! > fixed
 fn main() {

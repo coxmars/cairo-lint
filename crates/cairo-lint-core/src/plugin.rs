@@ -39,6 +39,7 @@ pub enum CairoLintKind {
     Panic,
     ErasingOperation,
     ManualOkOr,
+    ManualUnwrapOr,
 }
 
 pub fn diagnostic_kind_from_message(message: &str) -> CairoLintKind {
@@ -59,6 +60,7 @@ pub fn diagnostic_kind_from_message(message: &str) -> CairoLintKind {
         loop_for_while::LOOP_FOR_WHILE => CairoLintKind::LoopForWhile,
         erasing_op::ERASING_OPERATION => CairoLintKind::ErasingOperation,
         manual_ok_or::MANUAL_OK_OR => CairoLintKind::ManualOkOr,
+        manual_unwrap_or::MANUAL_UNWRAP_OR => CairoLintKind::ManualUnwrapOr,
         _ => CairoLintKind::Unknown,
     }
 }
@@ -129,11 +131,9 @@ impl AnalyzerPlugin for CairoLint {
                         );
                     }
                     SyntaxKind::ExprMatch => {
-                        manual_ok_or::check_manual_ok_or(
-                            db.upcast(),
-                            &ExprMatch::from_syntax_node(db.upcast(), node),
-                            &mut diags,
-                        );
+                        let expr_match = ExprMatch::from_syntax_node(db.upcast(), node);
+                        manual_ok_or::check_manual_ok_or(db.upcast(), &expr_match, &mut diags);
+                        manual_unwrap_or::check_manual_unwrap_or(db.upcast(), &expr_match, &mut diags);
                     }
                     _ => continue,
                 }

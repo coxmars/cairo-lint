@@ -46,6 +46,16 @@ fn main() {
 }
 
 //! > diagnostics
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+  --> lib.cairo:30:9
+   |
+30 |           match used {
+   |  _________-
+31 | |             Option::Some(not_used) => 1_u32,
+32 | |             Option::None => 2_u32,
+33 | |         };
+   | |_________-
+   |
 warning: Unused variable. Consider ignoring by prefixing with `_`.
  --> lib.cairo:8:13
   |

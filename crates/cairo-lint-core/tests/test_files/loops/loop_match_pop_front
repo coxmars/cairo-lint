@@ -15,6 +15,17 @@ fn main() {
 }
 
 //! > diagnostics
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+  --> lib.cairo:6:9
+   |
+ 6 |           match a.pop_front() {
+   |  _________-
+ 7 | |             Option::Some(val) => println!("{val}"),
+...  |
+11 | |             },
+12 | |         }
+   | |_________-
+   |
 
 //! > fixed
 fn main() {
@@ -62,6 +73,17 @@ warning: Plugin diagnostic: you seem to be trying to use `loop` for iterating ov
 14 | |     }
    | |_____-
    |
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+  --> lib.cairo:6:9
+   |
+ 6 |           match a.pop_front() {
+   |  _________-
+ 7 | |             Option::Some(val) => {
+...  |
+13 | |             },
+14 | |         }
+   | |_________-
+   |
 
 //! > fixed
 fn main() {
@@ -93,6 +115,17 @@ fn main() {
 }
 
 //! > diagnostics
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+  --> lib.cairo:6:9
+   |
+ 6 |           match a.pop_front() {
+   |  _________-
+ 7 | |             Option::Some(val) => println!("{val}"),
+...  |
+11 | |             },
+12 | |         }
+   | |_________-
+   |
 
 //! > fixed
 fn main() {
@@ -135,6 +168,16 @@ warning: Plugin diagnostic: you seem to be trying to use `loop` for iterating ov
 9 | |     }
   | |_____-
   |
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+ --> lib.cairo:6:9
+  |
+6 |           match a.pop_front() {
+  |  _________-
+7 | |             Option::Some(val) => println!("{val}"),
+8 | |             Option::None => { break; },
+9 | |         }
+  | |_________-
+  |
 
 //! > fixed
 fn main() {
@@ -172,6 +215,16 @@ warning: Plugin diagnostic: you seem to be trying to use `loop` for iterating ov
 10 | |         }
 11 | |     }
    | |_____-
+   |
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+  --> lib.cairo:8:9
+   |
+ 8 |           match SpanImpl::pop_front(ref a) {
+   |  _________-
+ 9 | |             Option::Some(val) => println!("{val}"),
+10 | |             Option::None => { break; },
+11 | |         }
+   | |_________-
    |
 
 //! > fixed
@@ -217,6 +270,16 @@ warning: Plugin diagnostic: you seem to be trying to use `loop` for iterating ov
 21 | |     }
    | |_____-
    |
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+  --> lib.cairo:18:9
+   |
+18 |           match a.b.c.pop_front() {
+   |  _________-
+19 | |             Option::Some(val) => println!("{val}"),
+20 | |             Option::None => { break; },
+21 | |         }
+   | |_________-
+   |
 
 //! > fixed
 struct A {
@@ -250,6 +313,16 @@ fn main() {
 }
 
 //! > diagnostics
+warning: Plugin diagnostic: Manual match for Option<T> detected. Consider using unwrap_or instead.
+  --> lib.cairo:8:9
+   |
+ 8 |           match a.pop_front() {
+   |  _________-
+ 9 | |             Option::Some(val) => println!("{val}"),
+10 | |             Option::None => { break; },
+11 | |         }
+   | |_________-
+   |
 
 //! > fixed
 fn main() {
