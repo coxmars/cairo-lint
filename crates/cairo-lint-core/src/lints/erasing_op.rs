@@ -7,7 +7,7 @@ use cairo_lang_syntax::node::{Terminal, TypedSyntaxNode};
 pub const ERASING_OPERATION: &str = "This operation results in the value being erased (e.g., multiplication by 0). \
                                      Consider replacing the entire expression with 0.";
 
-pub fn check_erasing_operation(db: &dyn SyntaxGroup, node: ExprBinary, diagnostics: &mut Vec<PluginDiagnostic>) {
+pub fn check_erasing_operation(db: &dyn SyntaxGroup, node: &ExprBinary, diagnostics: &mut Vec<PluginDiagnostic>) {
     let lhs = node.lhs(db);
     let op = node.op(db);
     let rhs = node.rhs(db);

@@ -11,7 +11,7 @@ use crate::lints::ifs::*;
 use crate::lints::manual::*;
 use crate::lints::{
     bitwise_for_parity_check, bool_comparison, breaks, double_comparison, double_parens, duplicate_underscore_args,
-    eq_op, erasing_op, loop_for_while, loops, panic, single_match,
+    eq_op, erasing_op, int_plus_one, loop_for_while, loops, panic, single_match,
 };
 
 pub fn cairo_lint_plugin_suite() -> PluginSuite {
@@ -48,6 +48,7 @@ pub enum CairoLintKind {
     ManualIsOk,
     ManualIsErr,
     ManualExpect,
+    IntPlusOne,
 }
 
 pub fn diagnostic_kind_from_message(message: &str) -> CairoLintKind {
@@ -77,6 +78,7 @@ pub fn diagnostic_kind_from_message(message: &str) -> CairoLintKind {
         manual_is::MANUAL_IS_OK => CairoLintKind::ManualIsOk,
         manual_is::MANUAL_IS_ERR => CairoLintKind::ManualIsErr,
         manual_expect::MANUAL_EXPECT => CairoLintKind::ManualExpect,
+        int_plus_one::INT_PLUS_ONE => CairoLintKind::IntPlusOne,
         _ => CairoLintKind::Unknown,
     }
 }
@@ -164,7 +166,8 @@ impl AnalyzerPlugin for CairoLint {
                         double_comparison::check_double_comparison(db.upcast(), &expr_binary, &mut diags);
                         eq_op::check_eq_op(db.upcast(), &expr_binary, &mut diags);
                         bitwise_for_parity_check::check_bitwise_for_parity(db.upcast(), &expr_binary, &mut diags);
-                        erasing_op::check_erasing_operation(db.upcast(), expr_binary, &mut diags);
+                        erasing_op::check_erasing_operation(db.upcast(), &expr_binary, &mut diags);
+                        int_plus_one::check_int_plus_one(db.upcast(), &expr_binary, &mut diags);
                     }
                     SyntaxKind::ElseClause => {
                         collapsible_if_else::check_collapsible_if_else(

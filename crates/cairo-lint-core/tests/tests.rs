@@ -312,3 +312,8 @@ test_file!(
 test_file!(manual, manual_ok, "test basic ok", "test basic if ok", "test other var", "test if other var");
 
 test_file!(manual, manual_err, "test basic err", "test basic if err", "test other err", "test if other err");
+
+test_file!(
+    int_plus_one, int_plus_one, 
+    "simple int_plus_one fix"
+);
